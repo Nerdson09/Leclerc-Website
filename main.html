@@ -124,7 +124,7 @@
         const triviaForm = document.getElementById("triviaForm");
         const responseMessage = document.getElementById("responseMessage");
 
-        function evaluateTrivia(name, answerOne, answerTwo, answerThree) {
+        function evaluateTrivia(answerOne, answerTwo, answerThree) {
             const correctAnswers = ["2021", "monza", "3"];
             let score = 0;
             const feedback = [];
@@ -140,7 +140,7 @@
                 feedback.push("Close! He joined Ferrari full-time in 2021.");
             }
 
-            if (answerTwoNormalized.includes("monza") || answerTwoNormalized.includes("temple of speed")) {
+            if (answerTwoNormalized.includes(correctAnswers[1]) || answerTwoNormalized.includes("temple of speed")) {
                 score += 1;
                 feedback.push("Nice! Monza is indeed the Temple of Speed.");
             } else {
@@ -166,20 +166,18 @@
 
         triviaForm.addEventListener("submit", function(event) {
             event.preventDefault();
-
-            const userName = document.getElementById("fanName").value.trim();
             const answerOne = document.querySelector('input[name="questionOne"]:checked');
             const answerTwo = document.querySelector('input[name="questionTwo"]:checked');
             const answerThree = document.querySelector('input[name="questionThree"]:checked');
 
-            if (!userName || !answerOne || !answerTwo || !answerThree) {
+            if (!answerOne || !answerTwo || !answerThree) {
                 alert("Please answer every trivia question before submitting.");
                 return;
             }
 
-            const result = evaluateTrivia(userName, answerOne.value, answerTwo.value, answerThree.value);
-            responseMessage.textContent = `${result.name}, you scored ${result.score} out of ${result.total}. ${result.feedback}`;
-            alert(`Trivia complete, ${result.name}! You scored ${result.score} / ${result.total}.`);
+            const result = evaluateTrivia(answerOne.value, answerTwo.value, answerThree.value);
+            responseMessage.textContent = `You scored ${result.score} out of ${result.total}. ${result.feedback}`;
+            alert(`Trivia complete! You scored ${result.score} / ${result.total}.`);
         });
     </script>
 </body>
