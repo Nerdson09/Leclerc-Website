@@ -11,7 +11,7 @@
 </style>
 
 <head>
-        <title>Charles Leclerc</title>
+        <title>Charles Leclerc Website</title>
 </head>
 
 <br>
@@ -46,7 +46,41 @@
 
     <img src="0x0.webp"  width="40%" height="40%" style="text-align:right ; padding: 10px"><br>
 
-   <u> <b> <a href="#bottom" style="font-size: 90px; color: white;"> CHARLES LECLERC </b> </u>
+         <u> <b> <a href="#bottom" style="font-size: 90px; color: white;"> CHARLES LECLERC</a> </b> </u>
+
+        <!--Trivia Section-->
+    <section style="margin-top: 40px;">
+        <h2 style="font-size: 250%; color: white;">Charles Leclerc Trivia Challenge</h2>
+        <p style="font-size: 160%; color: white; max-width: 800px; margin: 0 auto;">Pick the correct answer to each question and see your score instantly.</p>
+        <form id="triviaForm" style="font-size: 150%; color: white; margin-top: 20px; text-align: left; display: inline-block; max-width: 900px;">
+            
+            <div style="margin-bottom: 20px;">
+                <label style="font-size: 110%;">1. In which year did Charles Leclerc join Ferrari full-time?</label><br>
+                <input type="radio" id="q1a1" name="questionOne" value="2020"><label for="q1a1"> 2020</label><br>
+                <input type="radio" id="q1a2" name="questionOne" value="2021"><label for="q1a2"> 2021</label><br>
+                <input type="radio" id="q1a3" name="questionOne" value="2022"><label for="q1a3"> 2022</label><br>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="font-size: 110%;">2. Which circuit is nicknamed "The Temple of Speed"?</label><br>
+                <input type="radio" id="q2a1" name="questionTwo" value="Monza"><label for="q2a1"> Monza</label><br>
+                <input type="radio" id="q2a2" name="questionTwo" value="Silverstone"><label for="q2a2"> Silverstone</label><br>
+                <input type="radio" id="q2a3" name="questionTwo" value="Spa"><label for="q2a3"> Spa</label><br>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="font-size: 110%;">3. How many races did he win in the 2022 season?</label><br>
+                <input type="radio" id="q3a1" name="questionThree" value="2"><label for="q3a1"> 2</label><br>
+                <input type="radio" id="q3a2" name="questionThree" value="3"><label for="q3a2"> 3</label><br>
+                <input type="radio" id="q3a3" name="questionThree" value="4"><label for="q3a3"> 4</label><br>
+            </div>
+
+            <button type="submit" style="font-size: 120%; padding: 10px 20px; background-color: crimson; color: white; border: none; cursor: pointer;">Submit Answers</button>
+        </form>
+        <p id="responseMessage" style="font-size: 160%; margin-top: 20px;"></p>
+    </section>
+
+  
 
     <br>
     <br>
@@ -86,6 +120,68 @@
     Inspirational visionary genius: Ethan Lepage <br>
     Emotional support Person: Puneeth Suresh
     
+    <script> //Script for trivia form
+        const triviaForm = document.getElementById("triviaForm");
+        const responseMessage = document.getElementById("responseMessage");
+
+        function evaluateTrivia(name, answerOne, answerTwo, answerThree) {
+            const correctAnswers = ["2021", "monza", "3"];
+            let score = 0;
+            const feedback = [];
+
+            const answerOneNormalized = answerOne.trim().toLowerCase();
+            const answerTwoNormalized = answerTwo.trim().toLowerCase();
+            const answerThreeNormalized = String(answerThree).trim();
+
+            if (answerOneNormalized === correctAnswers[0]) {
+                score += 1;
+                feedback.push("Great! Leclerc joined Ferrari full-time in 2021.");
+            } else {
+                feedback.push("Close! He joined Ferrari full-time in 2021.");
+            }
+
+            if (answerTwoNormalized.includes("monza") || answerTwoNormalized.includes("temple of speed")) {
+                score += 1;
+                feedback.push("Nice! Monza is indeed the Temple of Speed.");
+            } else {
+                feedback.push("The Temple of Speed is Monza, one of his favorite historic tracks.");
+            }
+
+            if (answerThreeNormalized === correctAnswers[2]) {
+                score += 1;
+                feedback.push("Correct! He won 3 races in 2022.");
+            } else if (Number(answerThreeNormalized) > 3) {
+                feedback.push("That was a strong season, but he actually won 3 races in 2022.");
+            } else {
+                feedback.push("Good try! The correct number is 3 wins in 2022.");
+            }
+
+            return {
+                name: name,
+                score: score,
+                total: correctAnswers.length,
+                feedback: feedback.join(" ")
+            };
+        }
+
+        triviaForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const userName = document.getElementById("fanName").value.trim();
+            const answerOne = document.querySelector('input[name="questionOne"]:checked');
+            const answerTwo = document.querySelector('input[name="questionTwo"]:checked');
+            const answerThree = document.querySelector('input[name="questionThree"]:checked');
+
+            if (!userName || !answerOne || !answerTwo || !answerThree) {
+                alert("Please answer every trivia question before submitting.");
+                return;
+            }
+
+            const result = evaluateTrivia(userName, answerOne.value, answerTwo.value, answerThree.value);
+            responseMessage.textContent = `${result.name}, you scored ${result.score} out of ${result.total}. ${result.feedback}`;
+            alert(`Trivia complete, ${result.name}! You scored ${result.score} / ${result.total}.`);
+        });
+    </script>
 </body>
 
 
