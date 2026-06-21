@@ -1,3 +1,4 @@
+<html>
 <style>
 h1{
   font-size: 400%; 
@@ -15,3 +16,4 @@ h1{
 <i><h2> Now with JavaScript!<h2></i>
 <br>
 Fan website i made for my computer science final on my F1 goat Charles Leclerc
+</html>
